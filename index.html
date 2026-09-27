@@ -1,0 +1,256 @@
+<!DOCTYPE html> 
+<html lang="az"> 
+    <head> 
+        <meta charset="UTF-8"> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <title>5 Oktyabr - Müəllimlər Gününüz Mübarək!</title> 
+        <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+        <style> 
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            body { 
+                font-family: 'Pacifico', cursive; 
+                background-color: #fdfdfd; 
+                text-align: center; 
+                padding: 20px; 
+                min-height: 100vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: #ff6b81;
+            } 
+
+            .container {
+                max-width: 650px;
+                width: 100%;
+            }
+
+            h1 { 
+                color: #ff6b81; 
+                font-size: 2.2rem;
+                margin-bottom: 15px;
+            } 
+
+            p { 
+                color: #6c757d; 
+                font-size: 1.2rem;
+                line-height: 1.8;
+                margin-bottom: 15px;
+            } 
+
+            button { 
+                background-color: #ff6b81; 
+                color: white; 
+                border: none; 
+                padding: 12px 30px; 
+                font-size: 18px; 
+                cursor: pointer; 
+                border-radius: 25px; 
+                font-family: 'Pacifico', cursive;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 10px rgba(255, 107, 129, 0.3);
+            } 
+
+            button:hover { 
+                background-color: #ff3b5f; 
+                transform: scale(1.05);
+            } 
+            .gift-wrapper {
+                cursor: pointer;
+                display: inline-block;
+                margin: 20px 0;
+                transition: transform 0.3s ease;
+            }
+
+            .gift-wrapper:hover {
+                transform: scale(1.08);
+            }
+
+            .gift-box {
+                position: relative;
+                width: 140px;
+                height: 140px;
+                margin: 0 auto;
+            }
+
+            .gift-body {
+                width: 100%;
+                height: 90px;
+                background: #ff6b81;
+                position: absolute;
+                bottom: 0;
+                border-radius: 0 0 15px 15px;
+                box-shadow: 0 8px 15px rgba(255, 107, 129, 0.2);
+            }
+
+            .gift-lid {
+                width: 150px;
+                height: 35px;
+                background: #ff3b5f;
+                position: absolute;
+                top: 20px;
+                left: -5px;
+                border-radius: 8px;
+                z-index: 2;
+                transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.4s;
+            }
+
+            .ribbon-v {
+                width: 24px;
+                height: 100%;
+                background: #ffffff;
+                margin: 0 auto;
+                opacity: 0.9;
+            }
+
+            .ribbon-h {
+                width: 100%;
+                height: 24px;
+                background: #ffffff;
+                position: absolute;
+                top: 33px;
+                opacity: 0.9;
+            }
+
+            .bow {
+                width: 45px;
+                height: 25px;
+                background: #ffffff;
+                position: absolute;
+                top: -15px;
+                left: 52px;
+                border-radius: 50% 50% 0 0;
+                z-index: 3;
+            }
+
+            .gift-box.open .gift-lid {
+                transform: translateY(-80px) rotate(-25deg);
+                opacity: 0;
+            }
+
+            .hint-text {
+                font-size: 1.3rem;
+                color: #ff6b81;
+                margin-top: 15px;
+                animation: pulse 1.5s infinite;
+            }
+
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+            .card {
+                display: none;
+                opacity: 0;
+                transform: translateY(20px);
+                transition: all 0.8s ease;
+                background: #ffffff;
+                padding: 30px;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+                border: 2px dashed #ffb6c1;
+            }
+
+            .card.show {
+                display: block;
+                opacity: 1;
+                transform: translateY(0);
+            }
+            .secret-section {
+                margin-top: 25px;
+                padding-top: 20px;
+                border-top: 2px dashed #ffe3e8;
+                display: none;
+                opacity: 0;
+                transition: all 0.6s ease;
+            }
+
+            .secret-section.show {
+                display: block;
+                opacity: 1;
+            }
+
+            .secret-title {
+                color: #ff3b5f;
+                font-size: 1.4rem;
+                margin-bottom: 10px;
+            }
+        </style> 
+    </head> 
+    <body> 
+        <div class="container">
+            <div id="giftSection">
+                <div class="gift-wrapper" onclick="openGift()">
+                    <div class="gift-box" id="giftBox">
+                        <div class="bow"></div>
+                        <div class="gift-lid">
+                            <div class="ribbon-v"></div>
+                        </div>
+                        <div class="gift-body">
+                            <div class="ribbon-v"></div>
+                            <div class="ribbon-h"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hint-text">🎁 Süpriz üçün hədiyyəyə basın!</div>
+            </div>
+            <div class="card" id="greetingCard">
+                <h1>Əziz Müəllimimiz! 🎉</h1> 
+                <p>5 Oktyabr - Beynəlxalq Müəllimlər Gününüz mübarək olsun!</p> 
+                <p>Sizə cansağlığı, fəaliyyətinizdə böyük uğurlar və xoşbəxtlik arzulayırıq</p> 
+                <p>Bizə göstərdiyiniz diqqət, qayğı və verdiyiniz biliklərə görə sizə minnətdarıq!</p> 
+                <p>Yaxşı ki, varsınız!</p> 
+
+                <br>
+                <button class="secret-btn" id="secretBtn" onclick="openSecret()">SECRET</button> 
+                <div class="secret-section" id="secretSection">
+                    <div class="secret-title">✨ Bizim Özəl Sözlərimiz</div>
+                    <p>Aysun: Siz tanıdığım en şirin dilli müəlliməsiz😊. Mənim üçün çox deyerlisiz🫶🏻</p>
+                    <p>Kamran: Bir millətin gələcəyi müəllimin əlindədir. Bizə verdiyiniz dəyərli tərbiyə və bilik üçün sizə minnətdarıq.</p>
+                    <p>Aybeniz: Saçınızdakı hər bəyaz teldə bizimde  də bir 'payımız' olduğunu bilirəm Əməyiniz ucun tesekkurler</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function openGift() {
+                const giftBox = document.getElementById('giftBox');
+                const giftSection = document.getElementById('giftSection');
+                const card = document.getElementById('greetingCard');
+
+                giftBox.classList.add('open');
+                confetti({
+                    particleCount: 100,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ff6b81', '#ff3b5f', '#ffffff', '#ffd1d8']
+                });
+
+                setTimeout(() => {
+                    giftSection.style.display = 'none';
+                    card.classList.add('show');
+                }, 600);
+            }
+
+            function openSecret() {
+                const secretSection = document.getElementById('secretSection');
+                const secretBtn = document.getElementById('secretBtn');
+
+                secretSection.classList.add('show');
+                secretBtn.style.display = 'none';
+                confetti({
+                    particleCount: 60,
+                    spread: 80,
+                    origin: { y: 0.7 },
+                    colors: ['#ff6b81', '#ff3b5f', '#ffd1d8']
+                });
+            }
+        </script>
+    </body> 
+</html>
